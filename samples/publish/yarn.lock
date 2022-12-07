@@ -10,8 +10,9 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@antmedia/react-native-ant-media@file:../..":
+"@antmedia/react-native-ant-media@https://github.com/LumenResearch/WebRTC-React-Native-SDK.git":
   version "1.0.5"
+  resolved "https://github.com/LumenResearch/WebRTC-React-Native-SDK.git#85a3469e6ddf7d456f0a59e0fafc82559e890e79"
   dependencies:
     react-native-webrtc "^1.100.1"
 

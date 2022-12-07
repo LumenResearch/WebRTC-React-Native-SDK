@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import {useAntMedia, rtc_view} from '@antmedia/react-native-ant-media';
+import {useAntMedia, rtc_view, ShareType} from '@antmedia/react-native-ant-media';
 
 import InCallManager from 'react-native-incall-manager';
 
@@ -28,8 +28,9 @@ export default function App() {
 
   const adaptor = useAntMedia({
     url: webSocketUrl,
+    sharetype: ShareType.SCREEN,
     mediaConstraints: {
-      audio: true,
+      audio: false,
       video: {
         width: 640,
         height: 480,
@@ -112,7 +113,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <View style={styles.box}>
         <Text style={styles.heading}>Ant Media WebRTC Publish</Text>
-        {localMedia ? <>{rtc_view(localMedia, styles.streamPlayer)}</> : <></>}
+        {/* {localMedia ? <>{rtc_view(localMedia, styles.streamPlayer)}</> : <></>} */}
         {!isPlaying ? (
           <>
             <TouchableOpacity onPress={handlePublish} style={styles.button}>

@@ -21,6 +21,7 @@ import {
 export interface Params {
   url: string;
   mediaConstraints: any;
+  sharetype: ShareType,
   callback(this: Adaptor, message: string, data?: any): void;
   callbackError?: (errorMessage: string, data?: any) => void;
   peer_connection_config?: any;
@@ -69,11 +70,16 @@ export interface Sender {
   };
   setParameters: (data: any) => Record<string, unknown>;
 }
+export enum ShareType {
+  CAM,
+  SCREEN
+}
 //useAntMedia main adaptor function
 export function useAntMedia(params: Params) {
   const {
     url,
     mediaConstraints,
+    sharetype,
     callbackError,
     callback,
     peer_connection_config,
@@ -517,8 +523,8 @@ export function useAntMedia(params: Params) {
       // connection opened
 
       if (!onlyDataChannel) {
-        mediaDevices
-          .getUserMedia(mediaConstraints)
+        const mediaShare = sharetype == ShareType.SCREEN ? mediaDevices.getDisplayMedia : mediaDevices.getUserMedia;
+        mediaShare(mediaConstraints)
           .then((stream: any) => {
             // Got stream!
             if (debug) console.log('got stream');
@@ -619,6 +625,7 @@ export function useAntMedia(params: Params) {
       if (debug) console.log(e.code, e.reason);
     };
   }, [
+    sharetype,
     callback,
     callbackError,
     closePeerConnection,
